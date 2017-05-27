@@ -27,7 +27,7 @@ void rotina_memInfo(){
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
-		printf("Cache usada: %d kB\n", n);	
+		printf("Cache usada: %d   kB\n", n);	
 	}
 	fclose(memInfo);	
 }
@@ -39,8 +39,8 @@ void rotina_swaps(){
 	}else{
 		fscanf(swaps,"%s %s %s %s %s\n",s1,s2,s3,s4,s5);
 		fscanf(swaps,"%s %s %d %d %d\n",s1,s5, &s_total, &s_used, &s_priority);
-		printf("Swap total: %d kB\n", s_total);
-		printf("Swap usada: %d kB\n", s_used);	
+		printf("Swap total: %d    kB\n", s_total);
+		printf("Swap usada: %d    kB\n", s_used);	
 	}
 	fclose(swaps);	
 }
@@ -49,9 +49,10 @@ int main(int argc, char *argv[]){
 	while(true){
 		rotina_memInfo();
 		rotina_swaps();
-		sleep(1);
-		system("clear");
+		system("ps -eo maj_flt,pid --sort=maj_flt | awk '$1>20'");
+		sleep(1);		
+		system("clear");		
 	}//fim do while
-//ps -eo min_flt,maj_flt,pid | awk '$1!=0'	
+//	
 return 0;
 }
