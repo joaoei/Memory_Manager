@@ -22,12 +22,17 @@ void rotina_memInfo(){
 		printf("Erro, nao foi possivel abrir o arquivo\n");
 	}else{
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
+		int total = n;
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
-		printf("Memória livre: %d kB\n", n);
+		int livre = n;
+		int mem_usada = (100 * (total - livre)) / total;
+		std::cout << "Memória total: " << total << " kB \n";
+		std::cout << "Memoria usada: " << mem_usada << "% \n";
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
 		fscanf(memInfo,"%s %d %s\n",s,&n,kb);
-		printf("Cache usada: %d kB\n", n);	
+		int cache_usada = n;
+		std::cout << "Cache usada:   " << cache_usada << " kB \n";
 	}
 	fclose(memInfo);	
 }
@@ -39,19 +44,54 @@ void rotina_swaps(){
 	}else{
 		fscanf(swaps,"%s %s %s %s %s\n",s1,s2,s3,s4,s5);
 		fscanf(swaps,"%s %s %d %d %d\n",s1,s5, &s_total, &s_used, &s_priority);
-		printf("Swap total: %d kB\n", s_total);
-		printf("Swap usada: %d kB\n", s_used);	
+		int swap_usado = (100 * s_used) / s_total;
+		std::cout << "Swap total:    " <<  s_total << " kB \n";
+		std::cout << "Swap usado:    " <<  swap_usado << "% \n";
 	}
 	fclose(swaps);	
 }
 int main(int argc, char *argv[]){
 	
 	while(true){
+		system("ps -eo pid,min_flt,maj_flt,comm | awk '$2!=0'");
 		rotina_memInfo();
 		rotina_swaps();
-		sleep(1);
+		sleep(2);
 		system("clear");
 	}//fim do while
+	
+	/*
+	double a;
+	double b;
+	std::vector<double> eq;
+
+	std::ifstream file;
+	file.open("/proc/meminfo");
+	if (!file.is_open()) {
+		return -1;
+	} else {
+		//1 - Mem total
+		//2 - Mem Free
+		// Memoria usada: 1-2 / 1
+		//5 - Cache 
+		//15 - Swap total
+		//16 - Swap Free
+		// Swap usado: 15-16 / 15
+		char l[80];
+		file.getline(l, 80);
+		a = atof(l);
+		file.getline(l, 80);
+		b = atof(l);
+		double n;
+
+		while (file.getline(l, 80)) {
+			n = atof(l);
+			eq->push_back(n);
+		}
+
+		file.close();
+	}
+	*/
 //ps -eo min_flt,maj_flt,pid | awk '$1!=0'	
 return 0;
 }
