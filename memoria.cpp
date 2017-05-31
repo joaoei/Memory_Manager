@@ -53,10 +53,9 @@ int main(int argc, char *argv[]){
 	float mem;
 	char caminho[256];
 	int minfl, majfl;
-	string pid = "11401";
+	string pid;
 	DIR *dirp;
 
-	while(1) {
 		system("clear");
 		struct dirent *directory_entry;
 
@@ -85,16 +84,11 @@ int main(int argc, char *argv[]){
 						swap(pid, &p_swap);			
 						//cache(pid,&p_cache);
 						mem_info(pid, &mem, &minfl, &majfl);
-						cout << "PID: " << pid << " Cache: " << "kkkkk" << "  Swap: " << p_swap << " kB  PageFaults Minor: " << minfl << "  PageFaults Major: " << majfl << "\n"; 
+						cout << "PID: " << pid << "  Memória usada: " << mem << "%  Cache: " << "[VALOR]" << "  Swap: " << p_swap << " kB  PageFaults Minor: " << minfl << "  PageFaults Major: " << majfl << "\n"; 
 					}
 				}
 			}
 		} while (directory_entry != NULL);
-		sleep(1);
-	}
-
-	//ESCREVRE TUDO EM UM ARQUIVO E DPS MOSTRA-LO
 	//DETERMINAR O VALOR DA CACHE
-	//ORGANIZAR VISUALMENTE
 return 0;
 }
