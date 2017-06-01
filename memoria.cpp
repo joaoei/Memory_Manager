@@ -1,15 +1,5 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <time.h>
-#include <stdlib.h>
-#include <cstring>
-# include <dirent.h>
-using namespace std;
+# include "spaces.h"
+
 
 /*Variáveis*/
 char caminho[256],cmd[256],s1[9], s2[9], s3[9], s4[9];
@@ -48,6 +38,7 @@ void mem_info(string pid, float *mem, int *minfl, int *majfl) {
 }
 
 int main(int argc, char *argv[]){
+
 	int v = 1; 
 	int p_swap;
 	float mem;
@@ -63,7 +54,7 @@ int main(int argc, char *argv[]){
 			perror("Nao foi possivel abri /proc");
 			return 1;
 		}
-
+		cout << "PID:   " << "%Memória usada:  " << "\%Cache: " << " Swapping:  " << "PageFaults Minor:   " << "PageFaults Major:" << "\n";//
 		do {
 			if ((directory_entry = readdir(dirp)) != NULL) {
 				if (directory_entry->d_type == DT_DIR) {
@@ -84,7 +75,9 @@ int main(int argc, char *argv[]){
 						swap(pid, &p_swap);			
 						//cache(pid,&p_cache);
 						mem_info(pid, &mem, &minfl, &majfl);
-						cout << "PID: " << pid << "  Memória usada: " << mem << "%  Cache: " << "[VALOR]" << "  Swap: " << p_swap << " kB  PageFaults Minor: " << minfl << "  PageFaults Major: " << majfl << "\n"; 
+						cout << pid <<spacePID(atoi(pid.c_str()));//
+						printf("%.1f",mem);//
+						cout << spaceM(mem)<< "[VALOR]" <<"   "<< p_swap << spaceSWAP(p_swap)<< minfl <<spaceMIN(minfl)<< majfl <<endl; //
 					}
 				}
 			}
