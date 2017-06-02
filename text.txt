@@ -1,0 +1,1 @@
+VmSwap:	       0 kB
